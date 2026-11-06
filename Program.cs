@@ -1,8 +1,20 @@
+using Microsoft.EntityFrameworkCore;
+using TiendaApi.Data;
+using TiendaApi.Repository;
+using TiendaApi.Repository.IRepository;
+
 var builder = WebApplication.CreateBuilder(args);
 
 //1) Servicios(contenedor  de dependencias)
 builder.Services.AddOpenApi();
-builder.Services.AddValidation();   
+builder.Services.AddValidation();
+//Conexion a la BDD
+builder.Services.AddDbContext<AppDbContext>(o => o.UseSqlServer(builder.Configuration.GetConnectionString("")));
+//Agregando los Scoped para cuadno se haga la peticion llegue al repository
+builder.Services.AddScoped<IProductoRepository, ProductoRepository>();
+builder.Services.AddProblemDetails();
+
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

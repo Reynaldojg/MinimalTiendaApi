@@ -11,5 +11,5 @@ public interface IProductoRepository
     bool Add(Productos dTO);
     bool Update(Productos dTO);
     bool Delete(Productos dTO);
-    bool SaveChanges();
+    bool Save();
 }

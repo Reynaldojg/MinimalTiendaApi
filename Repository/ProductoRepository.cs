@@ -19,13 +19,13 @@ public class ProductoRepository : IProductoRepository
     {
         dTO.DateCreate = DateTime.Now;
         _DbContext.Productos.Add(dTO);
-        return SaveChanges();
+        return Save();
     }
 
     public bool Delete(Productos dTO)
     {
         _DbContext.Productos.Remove(dTO);
-        return SaveChanges();
+        return Save();
     }
 
     public ICollection<Productos> GetAll()
@@ -38,13 +38,15 @@ public class ProductoRepository : IProductoRepository
         return _DbContext.Productos.FirstOrDefault(p => p.Id == Productoid);
     }
 
-    public bool SaveChanges()
+    public bool Save()
     {
-        throw new NotImplementedException();
+        return _DbContext.SaveChanges() >= 0? true : false;
     }
 
     public bool Update(Productos dTO)
     {
-        throw new NotImplementedException();
+        dTO.DateCreate = DateTime.Now;
+       _DbContext.Productos.Update(dTO);
+       return Save();
     }
 }
