@@ -1,0 +1,18 @@
+using System;
+using Microsoft.EntityFrameworkCore;
+using TiendaApi.Models;
+
+namespace TiendaApi.Data;
+
+public class AppDbContext : DbContext
+{
+    public AppDbContext(DbContextOptions<AppDbContext> options) : base(options){}
+
+    public DbSet<Productos> Productos {get; set;}
+
+    protected override void OnModelCreating(ModelBuilder modelBuilder)
+    {
+        modelBuilder.Entity<Productos>().Property(p => p.Price).HasPrecision(18,2);
+    }
+    
+}
